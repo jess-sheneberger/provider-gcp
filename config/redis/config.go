@@ -12,6 +12,10 @@ func Configure(p *config.Provider) {
 			if a, ok := attr["host"].(string); ok {
 				conn["host"] = []byte(a)
 			}
+			if certs, ok := attr["serverCaCerts"].([]map[string]any); ok {
+				// need serialize serverCaCerts to []byte
+				serverCaCerts["ca"] = certs
+			}
 			return conn, nil
 		}
 	})
